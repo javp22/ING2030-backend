@@ -29,9 +29,6 @@ exit # salir de la consola psql
 psql <nombre_bdd>
 ```
 
-# Indica los comandos de terminal necesarios para inicializar la base de datos acá
-
-
 ## Entorno
 Una vez creada la base de datos e inicializado ``psql``, se debe crear un archivo `.env` con lo siguiente
 
@@ -44,28 +41,9 @@ DB_DIALECT=postgres          # default
 PORT=<puerto>                # Puerto en el que se correrá la aplicacion, de no indicar se toma 3000 como default
 ```
 
-## Sequelize: Migraciones
-
-Se adjuntan ejemplos (SON LOS DE MI TAREA)
-
-### User
-```
-yarn sequelize-cli model:generate --name User --attributes username:string
-```
-
-### Meme
-```
-yarn sequelize-cli model:generate --name Meme --attributes title:string,url:string,likeCount:integer,userId:integer
-```
-
-### Like
-```
-yarn sequelize-cli model:generate --name Like --attributes userId:integer,memeId:integer
-```
-
-### Comment
-```
-yarn sequelize-cli model:generate --name Comment --attributes body:string,userId:integer,memeId:integer
+## Sequelize: Modelos creados
+```bash
+yarn sequelize-cli model:generate --name User --attributes username:string,email:string,password:string,profilePicture:string
 ```
 
 ## Migraciones
@@ -91,4 +69,27 @@ yarn sequelize-cli seed:generate --name <nombre_seed>
 ```bash
 # Cargar todas las seeds incluidas en el directorio src/seeders
 yarn sequelize-cli db:seed:all
+```
+
+## Rutas
+
+### User
+```bash
+# Inicio de sesion
+POST /users/login
+# Parametros solicitud: username, password
+# Respuestas:
+#   status 200: Inicio de sesion valido, retorna JSON con datos del usuario
+#   status 404: Usuario no existe
+#   status 401: Contraseña no coincide
+#   status 500: Error interno del serivdor
+
+# Creacion de usuario
+POST /users/register
+# Parametros solicitud: username, email, password
+# Respuestas:
+#   status 200: Usuario creado correctamente
+#   status 409: Usuario ya existe
+#   status 500: Error interno del servidor
+
 ```
