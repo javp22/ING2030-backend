@@ -15,18 +15,18 @@ sudo service postgresql start
 sudo -i -u postgres
 
 # 3. Crear la base de datos
-createdb <nombre_bdd>
+createdb ing2030
 
 # 4. Crear al usuario y configurarlo en psql
-createuser <nombre_usuario>
+createuser ing2030_user
 psql # ingresar a la consola psql
-ALTER USER <nombre_usuario> WITH PASSWORD '<password>'; # crear clave para el usuario
-GRANT ALL PRIVILEGES ON DATABASE <nombre_bdd> TO <nombre_usuario>; # conceder privilegios al usuario en la base de datos
-ALTER USER <nombre_usuario> createdb;
+ALTER USER ing2030_user WITH PASSWORD 'ing2030'; # crear clave para el usuario
+GRANT ALL PRIVILEGES ON DATABASE ing2030 TO ing2030_user; # conceder privilegios al usuario en la base de datos
+ALTER USER ing2030_user createdb;
 exit # salir de la consola psql
 
 # 5. Conectarse a la base de datos
-psql <nombre_bdd>
+psql ing2030
 ```
 
 ## Entorno
@@ -44,6 +44,16 @@ PORT=<puerto>                # Puerto en el que se correrá la aplicacion, de no
 ## Sequelize: Modelos creados
 ```bash
 yarn sequelize-cli model:generate --name User --attributes username:string,email:string,password:string,profilePicture:string
+
+yarn sequelize-cli model:generate --name Transaction --attributes userId:integer,amount:float,company:string,category:string,date:date,description:string
+
+yarn sequelize-cli model:generate --name Subscription --attributes userId:integer,amount:float,company:string,category:string,billingCycle:string,nextBillingDate:date,isActive:boolean
+
+yarn sequelize-cli model:generate --name SavingGoal --attributes userId:integer,title:string,targetAmount:float,currentAmount:float,period:string,deadline:date,isCompleted:boolean
+
+yarn sequelize-cli model:generate --name Budget --attributes userId:integer,period:string,limitAmount:float,spentAmount:float
+
+yarn sequelize-cli model:generate --name Alert --attributes userId:integer,message:string,date:date,type:string,isRead:boolean
 ```
 
 ## Migraciones
