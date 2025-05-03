@@ -14,23 +14,23 @@ module.exports = {
     */
     // 3 usuarios
     await queryInterface.bulkInsert('Users', [{
-      username: 'diegoga',
-      email: 'diegoga@mail.com',
-      password: 'diegogapass',
+      username: 'user1',
+      email: 'user1@email.com',
+      password: 'user1pass',
       profilePicture: '',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      username: 'xavierzoz',
-      email: 'xavierzoz@mail.com',
-      password: 'xavierzozpass',
+      username: 'user2',
+      email: 'user2@email.com',
+      password: 'user2pass',
       profilePicture: '',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      username: 'crisplaza09',
-      email: 'crisplaza09@mail.com',
-      password: 'crisplaza09pass',
+      username: 'user3',
+      email: 'user3@email.com',
+      password: 'user3pass',
       profilePicture: '',
       createdAt: new Date(),
       updatedAt: new Date()
