@@ -45,7 +45,7 @@ PORT=<puerto>                # Puerto en el que se correrá la aplicacion, de no
 ```bash
 yarn sequelize-cli model:generate --name User --attributes username:string,email:string,password:string,profilePicture:string
 
-yarn sequelize-cli model:generate --name Transaction --attributes userId:integer,amount:float,company:string,category:string,date:date,description:string
+yarn sequelize-cli model:generate --name Transaction --attributes userId:integer,amount:float,company:string,category:string,date:date,description:string,type:string
 
 yarn sequelize-cli model:generate --name Subscription --attributes userId:integer,amount:float,company:string,category:string,billingCycle:string,nextBillingDate:date,isActive:boolean
 
@@ -103,3 +103,7 @@ POST /users/register
 #   status 500: Error interno del servidor
 
 ```
+
+### Transacciones
+
+Dejé ejemplos para usuarios [aqui](https://docs.google.com/spreadsheets/d/1LHrW5rWxMevVtGhdjNU56j_tk_wCzszYP5w2Beg-q0s/edit?usp=sharing). Si hay alguna que quieren editar denle nomas (actualizar el seeder igual!)
