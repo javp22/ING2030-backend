@@ -63,6 +63,9 @@ yarn sequelize-cli db:migrate
 
 # Si se necesita ir haciendo rollbacks
 yarn sequelize-cli db:migrate:undo
+
+# Rollback de TODAS las migraciones
+yarn sequelize-cli db:migrate:undo:all
 ```
 
 ## Seeds
