@@ -7,6 +7,7 @@ router.post('/register', async (ctx) => {
     const body = ctx.request.body;
     const email = body.email;
     console.log(email);
+    console.log(body);
     try {
         const existingUser = await User.findOne({ where: { email: email } });
 
@@ -48,10 +49,12 @@ router.post('/login', async (ctx) => {
 
         // // Se asume que la contraseña es plaintext para no complicarnos tanto
         // // TODO: agregar mas adelante encriptacion para hacer esto mas seguro
-        if (password !== user.password) {
+        if (password != user.password) {
             // Incorrecta
             ctx.body = { error: 'Contraseña incorrecta' };
             ctx.status = 401; // Credencial Invalida
+            console.log(password);
+            console.log(user.password);
             return;
         }
 
