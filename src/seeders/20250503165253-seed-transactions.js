@@ -19,14 +19,14 @@ module.exports = {
       amount: 30000,
       company: 'Papá',
       category: 'Familiar', // Las categorias igual me las invente, se asume que existiran en el frontend
-      date: new Date(), // como no estamos trabajando este campo da un poco igual por ahora, pero si las necesitan cambiar para el display del front denle nomas
+      date: new Date(), // TODO: cambiarle el dia o la hora a estas fechas
       description: 'Deposito mesada',
       type: 'deposito',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       userId: 1,
-      amount: 3200,
+      amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
       date: new Date(),
@@ -37,7 +37,7 @@ module.exports = {
 
     }, {
       userId: 1,
-      amount: 5000,
+      amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
       date: new Date(),
@@ -47,7 +47,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 1,
-      amount: 5800,
+      amount: -5800,
       company: 'Rappi',
       category: 'Comida',
       date: new Date(),
@@ -57,7 +57,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 1,
-      amount: 3000,
+      amount: -3000,
       company: 'Cine Hoyts',
       category: 'Entretenimiento',
       date: new Date(),
@@ -67,7 +67,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 1,
-      amount: 3200,
+      amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
       date: new Date(),
@@ -77,7 +77,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 1,
-      amount: 5000,
+      amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
       date: new Date(),
@@ -87,7 +87,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 1,
-      amount: 2000,
+      amount: -2000,
       company: 'Spotify',
       category: 'Suscripcion',
       date: new Date(),
@@ -107,7 +107,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 1,
-      amount: 3200,
+      amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
       date: new Date(),
@@ -129,7 +129,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 2,
-      amount: 3200,
+      amount: -3200,
       company: 'Almacen RicoPan',
       category: 'Comida',
       date: new Date(),
@@ -139,7 +139,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 2,
-      amount: 1000,
+      amount: -1000,
       company: 'Minimarket Barrio',
       category: 'Comida',
       date: new Date(),
@@ -149,7 +149,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       userId: 2,
-      amount: 5000,
+      amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
       date: new Date(),

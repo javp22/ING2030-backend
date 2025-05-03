@@ -108,5 +108,28 @@ POST /users/register
 ```
 
 ### Transacciones
+```bash
+# Obtener todas las transacciones de todos los usuarios
+GET /transactions
+# Parametros solicitud: Ninguno
+# Respuestas:
+#   status 200: Lista con todas las transacciones
+#   status 500: Error interno del servidor
 
-Dejé ejemplos para usuarios [aqui](https://docs.google.com/spreadsheets/d/1LHrW5rWxMevVtGhdjNU56j_tk_wCzszYP5w2Beg-q0s/edit?usp=sharing). Si hay alguna que quieren editar denle nomas (actualizar el seeder igual!)
+# Obtener transacciones de un usuario
+GET /transactions/history/:userId
+# Parametros solicitud: userId (el param va en la ruta en este caso)
+# Respuestas:
+#   status 200: Lista con todas las transacciones del usuario con id userId
+#   status 500: Error interno del 
+
+# Crear nueva transaccion
+POST /transactions/:userId
+# Parametros solicitud: 
+#   userId (el param va en la ruta en este caso)
+#   los datos de la transac que squemos del excel
+# Respuestas:
+#   status 201: Recurso creado correctamente
+#   status 500: Error interno del servidor
+
+```
