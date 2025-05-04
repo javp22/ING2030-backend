@@ -33,11 +33,11 @@ psql ing2030
 Una vez creada la base de datos e inicializado ``psql``, se debe crear un archivo `.env` con lo siguiente
 
 ```bash
-DB_USERNAME=<nombre_usuario> # Usuario de la base de datos
-DB_PASSWORD=<password>       # Clave del usuario
-DB_NAME=<nombre_bdd>         # Nombre de la base de datos
-DB_HOST=127.0.0.1            # default
-DB_DIALECT=postgres          # default
+DB_USERNAME = ing2030_user # Usuario de la base de datos
+DB_PASSWORD = ing2030       # Clave del usuario
+DB_NAME = ing2030        # Nombre de la base de datos
+DB_HOST= 127.0.0.1            # default
+DB_DIALECT= postgres          # default
 PORT=<puerto>                # Puerto en el que se correrá la aplicacion, de no indicar se toma 3000 como default
 ```
 
