@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const router = new Router();
 const { Transaction, Budget } = require('../models');
+const { Op } = require('sequelize');
 
 // gasto del dia
 router.get('/daily/:userId', async (ctx) => {
@@ -13,54 +14,66 @@ router.get('/daily/:userId', async (ctx) => {
     end.setHours(23, 59, 59, 999);
 
     // sumar transacciones del usuario de ese dia
-    const total = await Transaction.sum('amount', {
-        where: {
-            userId,
-            date: { [Op.between]: [start, end] }
-        }
-    });
+    try {
+        const transactions = await Transaction.findAll({
+            where: {
+              userId,
+              type: 'cargo',
+            },
+          });
+        let total = 0;
+        transactions.forEach(t => {
+            total += t.amount
+          });
+        console.log("Total gasto diario:", total);
 
-    ctx.body = {
-        total: total || 0,
-        startOfDay: start.toISOString()
-    };
+        if (total === null) {
+            ctx.body = {
+                message: "No se han realizado transacciones hoy",
+                total: 0,
+            };
+            ctx.status = 200;
+        } else {
+            ctx.body = {
+                total: -total || 0,
+                startOfDay: start.toISOString()
+            };
+            ctx.status = 200;
+        }
+    } catch (error) {
+        if (total == 0) {
+            ctx.body = "Error en el servidor"
+        }
+        ctx.status = 500;
+
+    }
 });
 
-// progreso presupuesto
-router.get('/goals/:userId', async (ctx) => {
+// progreso 
+router.get('/budget/:userId', async (ctx) => {
     const userId = ctx.params.userId;
 
-    // ultimo presupuesto semanal
-    const weekly = await Budget.findOne({
-        where: {
-            userId,
-            period: 'weekly'
-        },
-        order: [['createdAt', 'DESC']]
-    });
-    // ultimo presupuesto mensual
-    const monthly = await Budget.findOne({
-        where: {
-            userId,
-            period: 'monthly'
-        },
-        order: [['createdAt', 'DESC']]
-    });
-
-    ctx.body = {
-        weekly: weekly ? {
-            ...weekly.toJSON(),
-            progress: weekly.limitAmount
-                ? (weekly.spentAmount / weekly.limitAmount) * 100
-                : 0
-        } : null,
-        monthly: monthly ? {
-            ...monthly.toJSON(),
-            progress: monthly.limitAmount
-                ? (monthly.spentAmount / monthly.limitAmount) * 100
-                : 0
-        } : null
-    };
+    try {
+        console.log(userId)
+        // encontrar presupuesto
+        const budget = await Budget.findOne({
+          where: { userId },
+          order: [['createdAt', 'DESC']]
+        });
+    
+        if (!budget) {
+          ctx.status = 404;
+          ctx.body = { message: 'No se ha creado presupuesto' };
+          return;
+        }
+        ctx.status = 200;
+        ctx.body = budget;
+        console.log(budget)
+      } catch (error) {
+        console.error('Error al obtener el presupuesto:', error);
+        ctx.status = 500;
+        ctx.body = { message: 'Error interno del servidor' };
+      }
 
 });
 
