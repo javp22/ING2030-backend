@@ -44,6 +44,22 @@ router.post('/:userId', async (ctx) => {
     try {
         body.userId = userId;
         const newTransaction = await Transaction.create(body);
+        console.log(newTransaction);
+
+        // buscar presupuesto 
+        const budget = await Budget.findOne({
+            where: {
+                userId: userId,
+            }
+        });
+
+        if (budget) {
+            if( newTransaction.type == "cargo") {
+                budget.spentAmount -= body.amount;
+                await budget.save();
+            }
+            
+        }
 
         ctx.body = { message: 'Nueva transaccion recibida', newTransaction };
         ctx.status = 201;
