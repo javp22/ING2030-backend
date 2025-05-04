@@ -45,7 +45,7 @@ PORT=<puerto>                # Puerto en el que se correrá la aplicacion, de no
 ```bash
 yarn sequelize-cli model:generate --name User --attributes username:string,email:string,password:string,profilePicture:string
 
-yarn sequelize-cli model:generate --name Transaction --attributes userId:integer,amount:float,company:string,category:string,date:date,description:string
+yarn sequelize-cli model:generate --name Transaction --attributes userId:integer,amount:float,company:string,category:string,date:date,description:string,type:string
 
 yarn sequelize-cli model:generate --name Subscription --attributes userId:integer,amount:float,company:string,category:string,billingCycle:string,nextBillingDate:date,isActive:boolean
 
@@ -63,6 +63,9 @@ yarn sequelize-cli db:migrate
 
 # Si se necesita ir haciendo rollbacks
 yarn sequelize-cli db:migrate:undo
+
+# Rollback de TODAS las migraciones
+yarn sequelize-cli db:migrate:undo:all
 ```
 
 ## Seeds
@@ -100,6 +103,33 @@ POST /users/register
 # Respuestas:
 #   status 200: Usuario creado correctamente
 #   status 409: Usuario ya existe
+#   status 500: Error interno del servidor
+
+```
+
+### Transacciones
+```bash
+# Obtener todas las transacciones de todos los usuarios
+GET /transactions
+# Parametros solicitud: Ninguno
+# Respuestas:
+#   status 200: Lista con todas las transacciones
+#   status 500: Error interno del servidor
+
+# Obtener transacciones de un usuario
+GET /transactions/history/:userId
+# Parametros solicitud: userId (el param va en la ruta en este caso)
+# Respuestas:
+#   status 200: Lista con todas las transacciones del usuario con id userId
+#   status 500: Error interno del 
+
+# Crear nueva transaccion
+POST /transactions/:userId
+# Parametros solicitud: 
+#   userId (el param va en la ruta en este caso)
+#   los datos de la transac que squemos del excel
+# Respuestas:
+#   status 201: Recurso creado correctamente
 #   status 500: Error interno del servidor
 
 ```
