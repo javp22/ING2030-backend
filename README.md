@@ -33,11 +33,11 @@ psql ing2030
 Una vez creada la base de datos e inicializado ``psql``, se debe crear un archivo `.env` con lo siguiente
 
 ```bash
-DB_USERNAME=<nombre_usuario> # Usuario de la base de datos
-DB_PASSWORD=<password>       # Clave del usuario
-DB_NAME=<nombre_bdd>         # Nombre de la base de datos
-DB_HOST=127.0.0.1            # default
-DB_DIALECT=postgres          # default
+DB_USERNAME = ing2030_user # Usuario de la base de datos
+DB_PASSWORD = ing2030       # Clave del usuario
+DB_NAME = ing2030        # Nombre de la base de datos
+DB_HOST= 127.0.0.1            # default
+DB_DIALECT= postgres          # default
 PORT=<puerto>                # Puerto en el que se correrá la aplicacion, de no indicar se toma 3000 como default
 ```
 
@@ -130,6 +130,36 @@ POST /transactions/:userId
 #   los datos de la transac que squemos del excel
 # Respuestas:
 #   status 201: Recurso creado correctamente
+#   status 500: Error interno del servidor
+
+```
+
+### Metas
+```bash
+
+# Obtener meta de un usuario
+GET /savinggoals/:userId
+# Parametros solicitud: userId (el param va en la ruta en este caso)
+# Respuestas:
+#   status 200: Meta del usuario con id userId
+#   status 500: Error interno del servidor 
+
+# Crear nueva meta
+POST /savinggoals/:userId
+# Parametros solicitud: 
+#   userId (el param va en la ruta en este caso)
+# Respuestas:
+#   status 400: Ya existe una meta
+#   status 201: Recurso creado correctamente
+#   status 500: Error interno del servidor
+
+PATCH /savinggoals/:userId
+# Parametros solicitud: 
+#   userId (el param va en la ruta en este caso)
+#   en el body se ponen los parámetros a actualizar
+# Respuestas:
+#   status 404: Meta no encontrada
+#   status 200: Recurso actualizado correctamente
 #   status 500: Error interno del servidor
 
 ```
