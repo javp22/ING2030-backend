@@ -133,3 +133,33 @@ POST /transactions/:userId
 #   status 500: Error interno del servidor
 
 ```
+
+### Metas
+```bash
+
+# Obtener meta de un usuario
+GET /savinggoals/:userId
+# Parametros solicitud: userId (el param va en la ruta en este caso)
+# Respuestas:
+#   status 200: Meta del usuario con id userId
+#   status 500: Error interno del servidor 
+
+# Crear nueva meta
+POST /savinggoals/:userId
+# Parametros solicitud: 
+#   userId (el param va en la ruta en este caso)
+# Respuestas:
+#   status 400: Ya existe una meta
+#   status 201: Recurso creado correctamente
+#   status 500: Error interno del servidor
+
+PATCH /savinggoals/:userId
+# Parametros solicitud: 
+#   userId (el param va en la ruta en este caso)
+#   en el body se ponen los parámetros a actualizar
+# Respuestas:
+#   status 404: Meta no encontrada
+#   status 200: Recurso actualizado correctamente
+#   status 500: Error interno del servidor
+
+```
