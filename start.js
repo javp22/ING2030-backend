@@ -10,7 +10,7 @@ async function deploy() {
     console.log('Migrating database...');
     console.log(output2);
 
-    const { stdout: output3 } = await exec('yarn sequelize-cli db:seed');
+    const { stdout: output3 } = await exec('yarn sequelize-cli db:seed:all');
     console.log('Seeding database...');
     console.log(output3);
 }
