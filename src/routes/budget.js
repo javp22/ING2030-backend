@@ -1,100 +1,108 @@
 const Router = require('koa-router');
 const router = new Router();
-const { Transaction, Budget } = require('../models');
+const { Transaction, Budget, User } = require('../models');
 const { Op, fn, col, literal } = require('sequelize');
 
+// crear presupuesto
 router.post('/', async (ctx) => {
-    const { userId, period, limitAmount } = ctx.request.body
+    const { userId, category, period, limitAmount } = ctx.request.body;
 
     try {
-        // fecha inicio
-        const now = new Date();
-        const startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        // verificar si existe presupuesto
+        const existing = await Budget.findOne({ where: { userId, category } });
+        if (existing) {
+            ctx.status = 400;
+            ctx.body = { message: 'Presupuesto ya existe para esta categoria' };
+            return;
+        }
+        const user = await User.findOne({
+            where: { id: userId },
+        });
 
-        // gasto del periodo
+        if (user.budget + Number(limitAmount) > user.balance) {
+            ctx.status = 403;
+            ctx.body ={ message: 'Presupuesto supera sueldo disponible' };
+            return;
+        } else {
+            user.budget +=limitAmount;
+            await user.save();
+        }
+
+        // establecer periodo 
+        const now = new Date();
+        let startDate;
+        
+        if (period === 'mensual') {
+            // primer día del mes actual
+            startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        } else if (period === 'semanal') {
+            // lunes de esta semana
+            const dayOfWeek = now.getDay(); // 0 (domingo) - 6 (sábado)
+            const mondayOffset = (dayOfWeek === 0 ? -6 : 1) - dayOfWeek;
+            startDate = new Date(now);
+            startDate.setDate(now.getDate() + mondayOffset);
+            startDate.setHours(0, 0, 0, 0);
+        }
+
+        // se añaden transferencias existentes tipo cargo
         const totalSpent = await Transaction.sum('amount', {
             where: {
                 userId,
-                createdAt: {
+                type: "cargo",
+                category: category,
+                date: {
                     [Op.gte]: startDate
                 }
             }
         }) || 0;
 
-        const budget = await Budget.findOne({
-            where: { userId, period },
+        const limitAmountNum = Number(limitAmount);
+
+        const budget = await Budget.create({
+            userId,
+            period,
+            category,
+            limitAmount: limitAmountNum,
+            spentAmount: -totalSpent,
         });
+        
 
-        if (!budget) {
-            // crear en bdd
-            const budget = await Budget.create({
-                userId: userId,
-                period: period,
-                limitAmount: limitAmount,
-                spentAmount: totalSpent
-            });
-
-        } else {
-            // actualizar existente
-            budget.limitAmount = limitAmount;
-            budget.spentAmount = totalSpent;
-            await budget.save();
-        }
-
-
-        ctx.status = 200;
+        ctx.status = 201;
         ctx.body = budget;
     } catch (error) {
-        console.error('Error al guardar presupuesto:', error);
+        console.error('Error al crear presupuesto:', error);
         ctx.status = 500;
-        ctx.body = 'Error interno del servidor';
+        ctx.body = { message: 'Error interno del servidor', error: error.message };
     }
-})
+});
 
-router.get("/:userId", async (ctx) => {
+// obtener presupuestos de un usuario
+router.get('/:userId', async (ctx) => {
     const userId = ctx.params.userId;
-    const { month, year } = ctx.query;
+    console.log('userId:', userId, 'typeof:', typeof userId);
 
-    if (!month || !year) {
-        ctx.status = 400;
-        ctx.body = { error: 'Se requieren parámetros "month" y "year"' };
-        return;
-    }
-    // obtener los movimientos de usuario
     try {
-        const startDate = new Date(year, month - 1, 1);
-        const endDate = new Date(year, month, 1);
-
-        const results = await Transaction.findAll({
-            where: {
-                userId,
-                date: {
-                    [Op.gte]: startDate,
-                    [Op.lt]: endDate
-                }
-            },
-            attributes: [
-                [fn('DATE', col('date')), 'date'],
-                [fn('sum', col('amount')), 'total']
-            ],
-            group: [fn('DATE', col('date'))],
-            order: [[fn('DATE', col('date')), 'ASC']]
+        console.log(userId)
+        // encontrar presupuestos
+        const budgets = await Budget.findAll({
+            where: { userId },
         });
-        if (!results) {
+
+        if (!budgets) {
             ctx.status = 404;
-            ctx.body = { error: 'No hay movimientos en este mes' };
-        } else {
-            ctx.status = 200;
-            ctx.body = results;
+            ctx.body = { message: 'No se han creado presupuestos' };
+            return;
         }
         ctx.status = 200;
-        ctx.body = results;
+        ctx.body = budgets;
+        console.log(budgets)
     } catch (error) {
-        console.error('Error al obtener gastos mensuales:', error);
+        console.error('Error al obtener el presupuesto:', error);
         ctx.status = 500;
-        ctx.body = 'Error interno del servidor';
+        ctx.body = { message: 'Error interno del servidor', error: error.message };
     }
-   
-})
+
+});
+
 
 module.exports = router;

@@ -13,14 +13,21 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users', key: 'id' },
       },
+      category: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       period: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       limitAmount: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
       spentAmount: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

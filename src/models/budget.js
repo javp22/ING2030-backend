@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Budget.init({
     userId: DataTypes.INTEGER,
+    category: DataTypes.STRING,
     period: DataTypes.STRING,
     limitAmount: DataTypes.FLOAT,
     spentAmount: DataTypes.FLOAT
