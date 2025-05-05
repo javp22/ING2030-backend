@@ -8,6 +8,11 @@ const Router = require('koa-router');
 
 const router = new Router();
 
+router.get("/", async (ctx) => {
+    ctx.body = { message: 'API live!' };
+    ctx.status = 200;
+});
+
 router.use('/users', users.routes());
 router.use('/transactions', transactions.routes());
 router.use('/savinggoals', saving_goals.routes());
