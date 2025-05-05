@@ -19,6 +19,9 @@ module.exports = {
       email: 'user1@email.com',
       password: 'user1pass',
       profilePicture: '',
+      balance: 200000,
+      budget: 0,
+      spent: 30400,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -27,6 +30,9 @@ module.exports = {
       email: 'user2@email.com',
       password: 'user2pass',
       profilePicture: '',
+      balance: 5000000,
+      budget: 0,
+      spent: 9200,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -34,6 +40,9 @@ module.exports = {
       username: 'user3',
       email: 'user3@email.com',
       password: 'user3pass',
+      balance: 300000,
+      budget: 0,
+      spent: 0,
       profilePicture: '',
       createdAt: new Date(),
       updatedAt: new Date()

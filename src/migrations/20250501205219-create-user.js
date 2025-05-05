@@ -21,9 +21,19 @@ module.exports = {
       profilePicture: {
         type: Sequelize.STRING
       },
+      balance: {
+        type: Sequelize.INTEGER
+      },
+      budget: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      spent: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
