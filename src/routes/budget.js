@@ -21,17 +21,17 @@ router.post('/', async (ctx) => {
 
         if (user.budget + Number(limitAmount) > user.balance) {
             ctx.status = 403;
-            ctx.body ={ message: 'Presupuesto supera sueldo disponible' };
+            ctx.body = { message: 'Presupuesto supera sueldo disponible' };
             return;
         } else {
-            user.budget +=limitAmount;
+            user.budget += limitAmount;
             await user.save();
         }
 
         // establecer periodo 
         const now = new Date();
         let startDate;
-        
+
         if (period === 'mensual') {
             // primer día del mes actual
             startDate = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -65,7 +65,7 @@ router.post('/', async (ctx) => {
             limitAmount: limitAmountNum,
             spentAmount: -totalSpent,
         });
-        
+
 
         ctx.status = 201;
         ctx.body = budget;
@@ -104,5 +104,28 @@ router.get('/:userId', async (ctx) => {
 
 });
 
+// obtener presupuesto en base a la categoria
+router.get('/:userId/:category', async (ctx) => {
+    const { userId, category } = ctx.params;
 
+    try {
+        // encontrar presupuesto por categoría
+        const budget = await Budget.findOne({
+            where: { userId, category },
+        });
+
+        if (!budget) {
+            ctx.status = 404;
+            ctx.body = { message: 'No se encontró un presupuesto para esta categoría' };
+            return;
+        }
+
+        ctx.status = 200;
+        ctx.body = budget;
+    } catch (error) {
+        console.error('Error al obtener el presupuesto por categoría:', error);
+        ctx.status = 500;
+        ctx.body = { message: 'Error interno del servidor', error: error.message };
+    }
+});
 module.exports = router;
