@@ -1,7 +1,6 @@
 const Router = require('koa-router');
 const router = new Router();
-const { Transaction, Budget } = require('../models');
-
+const { Transaction, Budget, User } = require('../models');
 const { Op } = require('sequelize');
 
 // Obtener todas las transacciones de todos los usuarios
@@ -41,10 +40,13 @@ router.get('/history/:userId', async (ctx) => {
 router.post('/:userId', async (ctx) => {
     const userId = ctx.params.userId;
     const body = ctx.request.body;
-    s
+    console.log(body);
+    const entry = body.entry;
     try {
-        body.userId = userId;
-        const newTransaction = await Transaction.create(body);
+        entry.userId = userId;
+        entry.date = new Date();
+        entry.amount = parseInt(entry.amount);
+        const newTransaction = await Transaction.create(entry);
         console.log(newTransaction);
 
         // buscar presupuesto 
@@ -55,13 +57,14 @@ router.post('/:userId', async (ctx) => {
         });
 
         if (budget) {
-            if( newTransaction.type == "cargo") {
-                budget.spentAmount -= body.amount;
+            if (newTransaction.type == "cargo") {
+                budget.spentAmount -= newTransaction.amount;
                 await budget.save();
             } else if (newTransaction.type === "deposito") {
                 budget.limitAmount += newTransaction.amount;
                 await budget.save();
             }
+
         }
         const user = await User.findOne({
             where: {
@@ -69,7 +72,7 @@ router.post('/:userId', async (ctx) => {
             }
         });
         console.log(user.spent);
-        user.spent -= body.amount;
+        user.spent -= newTransaction.amount;
         await user.save();
         console.log(user.spent);
 
@@ -96,17 +99,17 @@ router.get('/daily/:userId', async (ctx) => {
     try {
         const transactions = await Transaction.findAll({
             where: {
-              userId,
-              type: 'cargo',
-              date: {
-                [Op.between]: [start, end]
-            }
+                userId,
+                type: 'cargo',
+                date: {
+                    [Op.between]: [start, end]
+                }
             },
-          });
+        });
         let total = 0;
         transactions.forEach(t => {
             total += t.amount
-          });
+        });
         if (total === null) {
             ctx.body = {
                 message: "No se han realizado transacciones hoy",
@@ -176,7 +179,7 @@ router.get("monthly/:userId", async (ctx) => {
         ctx.status = 500;
         ctx.body = 'Error interno del servidor';
     }
-   
+
 })
 
 module.exports = router;
