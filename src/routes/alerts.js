@@ -79,5 +79,26 @@ router.delete('/:userId', async (ctx) => {
     }
 });
 
+// Editar alerta
+router.patch('/:alertId', async (ctx) => {
+    const alertId = ctx.params.alertId;
+    const body = ctx.request.body;
+    try {
+        const alert = await Alert.findByPk(alertId);
+        if (alert === null) {
+            ctx.body = { error: 'Alerta no encontrada' };
+            ctx.status = 404;
+        }
+
+        await alert.update(body);
+        ctx.body = alert;
+        ctx.status = 200;
+    }
+
+    catch (error) {
+        ctx.body = { error: error.message || 'Error en el servidor' }
+        ctx.status = 500;
+    }
+});
 
 module.exports = router;
