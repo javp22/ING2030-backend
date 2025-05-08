@@ -57,11 +57,9 @@ router.post('/:userId', async (ctx) => {
         });
 
         if (budget) {
-            if (newTransaction.type == "cargo") {
-                budget.spentAmount -= newTransaction.amount;
-                await budget.save();
-            } else if (newTransaction.type === "deposito") {
-                budget.limitAmount += newTransaction.amount;
+            if (newTransaction.type === "cargo") {
+                // Aumentar la cantidad de gasto
+                budget.spentAmount += Math.abs(newTransaction.amount);
                 await budget.save();
             }
 
@@ -71,14 +69,24 @@ router.post('/:userId', async (ctx) => {
                 id: userId,
             }
         });
-        console.log(user.spent);
-        user.spent -= newTransaction.amount;
+
+        // Actualizar atributos del usuario
+
+        if (newTransaction.type === "cargo") {
+            // Para gastos, se actualiza el atributo "spent" del usuario.
+            user.spent -= Math.abs(newTransaction.amount);
+        }
+
+        else if (newTransaction.type === "deposito") {
+            // Para depósitos, se actualiza el atributo "balance" del usuario.
+            user.balance += newTransaction.amount;
+        }
         await user.save();
-        console.log(user.spent);
 
         ctx.body = { message: 'Nueva transaccion recibida', newTransaction };
         ctx.status = 201;
     } catch (error) {
+        console.log(error);
         ctx.body = { error: error.message || 'Error en el servidor' };
         ctx.status = 500;
     }
