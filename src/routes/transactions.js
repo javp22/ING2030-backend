@@ -53,6 +53,7 @@ router.post('/:userId', async (ctx) => {
         const budget = await Budget.findOne({
             where: {
                 userId: userId,
+                category: newTransaction.category,
             }
         });
 
