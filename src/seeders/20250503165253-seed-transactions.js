@@ -15,7 +15,7 @@ module.exports = {
     //  30 transacciones, 10 para cada usuario
     await queryInterface.bulkInsert('Transactions', [{
       // Transacciones del user1
-      userId: 1,
+      userId: 1001,
       amount: 30000,
       company: 'Papá',
       category: 'Familiar', // Las categorias igual me las invente, se asume que existiran en el frontend
@@ -25,7 +25,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
@@ -36,7 +36,7 @@ module.exports = {
       updatedAt: new Date()
 
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
@@ -46,7 +46,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -5800,
       company: 'Rappi',
       category: 'Comida',
@@ -56,7 +56,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3000,
       company: 'Cine Hoyts',
       category: 'Entretenimiento',
@@ -66,7 +66,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
@@ -76,7 +76,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
@@ -86,7 +86,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -2000,
       company: 'Spotify',
       category: 'Suscripcion',
@@ -96,7 +96,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: 10000,
       company: 'Banco Estado',
       category: 'Banca',
@@ -106,7 +106,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
@@ -118,7 +118,7 @@ module.exports = {
 
     }, {
       // Transacciones del user2
-      userId: 2,
+      userId: 1002,
       amount: 15000,
       company: 'Papá',
       category: 'Familiar',
@@ -128,7 +128,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 2,
+      userId: 1002,
       amount: -3200,
       company: 'Almacen RicoPan',
       category: 'Comida',
@@ -138,7 +138,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 2,
+      userId: 1002,
       amount: -1000,
       company: 'Minimarket Barrio',
       category: 'Comida',
@@ -148,7 +148,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 2,
+      userId: 1002,
       amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
