@@ -75,7 +75,8 @@ router.post('/:userId', async (ctx) => {
 
         if (newTransaction.type === "cargo") {
             // Para gastos, se actualiza el atributo "spent" del usuario.
-            user.spent -= Math.abs(newTransaction.amount);
+            user.spent += Math.abs(newTransaction.amount);
+            user.balance -= Math.abs(newTransaction.amount)
         }
 
         else if (newTransaction.type === "deposito") {

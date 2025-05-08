@@ -2,6 +2,20 @@ const Router = require('koa-router');
 const router = new Router();
 const { User } = require('../models');
 
+// Obtencion de Usuario:
+router.get('/:userId', async (ctx) => {
+    const userId = ctx.params.userId;
+    try {
+        const user = await User.findByPk(userId);
+        ctx.body = user;
+        ctx.status == 200;
+    } catch (error) {
+        console.log(error);
+        ctx.body = { error: error.message || 'Error en el servidor' };
+        ctx.status = 500;
+    }
+})
+
 // Creacion de Usuario:
 router.post('/register', async (ctx) => {
     const body = ctx.request.body;
@@ -18,11 +32,14 @@ router.post('/register', async (ctx) => {
             return;
         }
 
+        // FIX: agregar saldo random e iniciar budget y spent en 0
+
         const newUser = await User.create(body);
         ctx.body = { message: 'Usuario creado correctamente', newUser };
         ctx.status = 201;
 
     } catch (error) {
+        console.log(error);
         ctx.body = { error: error.message || "Error en el servidor" };
         ctx.status = 500;
     }
