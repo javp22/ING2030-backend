@@ -32,9 +32,14 @@ router.post('/register', async (ctx) => {
             return;
         }
 
-        // FIX: agregar saldo random e iniciar budget y spent en 0
+        // FIX: agregar saldo e iniciar budget y spent en 0
 
-        const newUser = await User.create(body);
+        const newUser = await User.create({
+            ...body,
+            balance: 50000,
+            spent: 0
+        });
+
         ctx.body = { message: 'Usuario creado correctamente', newUser };
         ctx.status = 201;
 
