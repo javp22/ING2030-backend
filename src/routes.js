@@ -1,17 +1,22 @@
 const users = require('./routes/users');
-const dashboard = require('./routes/dashboard');
 const transactions = require('./routes/transactions');
 const saving_goals = require('./routes/savinggoals');
-const budget = require('./routes/budget')
+const budget = require('./routes/budget');
+const alert = require('./routes/alerts');
 
 const Router = require('koa-router');
 
 const router = new Router();
 
+router.get("/", async (ctx) => {
+    ctx.body = { message: 'API live!' };
+    ctx.status = 200;
+});
+
 router.use('/users', users.routes());
-router.use('/dashboard', dashboard.routes());
 router.use('/transactions', transactions.routes());
 router.use('/savinggoals', saving_goals.routes());
-router.use('/budget', budget.routes());
+router.use('/budgets', budget.routes());
+router.use('/alerts', alert.routes());
 
 module.exports = router;

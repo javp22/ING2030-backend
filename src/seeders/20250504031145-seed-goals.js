@@ -9,7 +9,7 @@ module.exports = {
     endOfMonth.setDate(0);
 
     await queryInterface.bulkInsert('SavingGoals', [{
-      userId: 1,
+      userId: 1001,
       title: 'Meta mensual',
       targetAmount: 50000,
       currentAmount: 0,
@@ -19,7 +19,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 2,
+      userId: 1002,
       title: 'Meta mensual',
       targetAmount: 70000,
       currentAmount: 0,

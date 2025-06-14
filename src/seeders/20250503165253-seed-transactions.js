@@ -15,102 +15,102 @@ module.exports = {
     //  30 transacciones, 10 para cada usuario
     await queryInterface.bulkInsert('Transactions', [{
       // Transacciones del user1
-      userId: 1,
+      userId: 1001,
       amount: 30000,
       company: 'Papá',
       category: 'Familiar', // Las categorias igual me las invente, se asume que existiran en el frontend
-      date: new Date(), // TODO: cambiarle el dia o la hora a estas fechas
+      date: new Date(2025, 4, 1), // TODO: cambiarle el dia o la hora a estas fechas
       description: 'Deposito mesada',
       type: 'deposito',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
-      date: new Date(),
+      date: new Date(2025, 4, 1),
       description: 'Cargo compra café 1',
       type: 'cargo',
       createdAt: new Date(),
       updatedAt: new Date()
 
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
-      date: new Date(),
+      date: new Date(2025, 4, 2),
       description: 'Cargo carga TNE 1',
       type: 'cargo',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -5800,
       company: 'Rappi',
       category: 'Comida',
-      date: new Date(),
+      date: new Date(2025, 4, 2),
       description: 'Cargo por compra de almuerzo',
       type: 'cargo',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3000,
       company: 'Cine Hoyts',
       category: 'Entretenimiento',
-      date: new Date(),
+      date: new Date(2025, 4, 2),
       description: 'Cargo entrada cine',
       type: 'cargo',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
-      date: new Date(),
+      date: new Date(2025, 4, 3),
       description: 'Cargo compra café',
       type: 'cargo',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
-      date: new Date(),
+      date: new Date(2025, 4, 3),
       description: 'Cargo carga TNE 2',
       type: 'cargo',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -2000,
       company: 'Spotify',
       category: 'Suscripcion',
-      date: new Date(),
+      date: new Date(2025, 4, 3),
       description: 'Cargo automatico por suscripcion mensual',
       type: 'cargo',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: 10000,
       company: 'Banco Estado',
       category: 'Banca',
-      date: new Date(),
+      date: new Date(2025, 4, 3),
       description: 'Deposito por venta',
       type: 'deposito',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 1,
+      userId: 1001,
       amount: -3200,
       company: 'Starbucks',
       category: 'Comida',
-      date: new Date(),
+      date: new Date(2025, 4, 4),
       description: 'Cargo compra café 3',
       type: 'cargo',
       createdAt: new Date(),
@@ -118,7 +118,7 @@ module.exports = {
 
     }, {
       // Transacciones del user2
-      userId: 2,
+      userId: 1002,
       amount: 15000,
       company: 'Papá',
       category: 'Familiar',
@@ -128,7 +128,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 2,
+      userId: 1002,
       amount: -3200,
       company: 'Almacen RicoPan',
       category: 'Comida',
@@ -138,7 +138,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 2,
+      userId: 1002,
       amount: -1000,
       company: 'Minimarket Barrio',
       category: 'Comida',
@@ -148,7 +148,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      userId: 2,
+      userId: 1002,
       amount: -5000,
       company: 'Metro de Santiago',
       category: 'Transporte',
