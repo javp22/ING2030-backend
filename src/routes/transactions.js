@@ -40,8 +40,7 @@ router.get('/history/:userId', async (ctx) => {
 router.post('/:userId', async (ctx) => {
     const userId = ctx.params.userId;
     const body = ctx.request.body;
-    console.log(body);
-    const entry = body.entry;
+    const entry = body.entry; 
     try {
         entry.userId = userId;
         entry.date = new Date();
