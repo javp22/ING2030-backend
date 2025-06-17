@@ -36,7 +36,7 @@ router.post('/register', async (ctx) => {
 
         const newUser = await User.create({
             ...body,
-            balance: 50000,
+            balance: 0,
             spent: 0
         });
 
