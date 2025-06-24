@@ -191,4 +191,29 @@ router.get("monthly/:userId", async (ctx) => {
 
 })
 
+// actualizar categoría de una transacción
+router.put('/:id', async (ctx) => {
+    const id = ctx.params.id;
+    const { category } = ctx.request.body;
+
+    try {
+        const transaction = await Transaction.findByPk(id);
+        if (!transaction) {
+            ctx.status = 404;
+            ctx.body = { error: 'Transacción no encontrada' };
+            return;
+        }
+
+        transaction.category = category;
+        await transaction.save();
+
+        ctx.status = 200;
+        ctx.body = { message: 'Categoría actualizada', transaction };
+    } catch (error) {
+        ctx.status = 500;
+        ctx.body = { error: error.message || 'Error en el servidor' };
+    }
+});
+
+
 module.exports = router;
